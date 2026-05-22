@@ -1,5 +1,14 @@
 import os
 
+
+def validator(value):
+    if not value:
+        return False
+    for character in value:
+        if character < '0' or character > '9':
+            return False
+    return True
+
 def account_exists(name):
     return os.path.exists(f"{name}.txt")
 
@@ -36,7 +45,7 @@ def read_balance(name):
     fh = open(f"{name}_bal.txt", "r")
     txt = fh.read().strip()
     fh.close()
-    if txt and txt.isdigit():
+    if validator(txt):
         return int(txt)
     return 0
 
@@ -99,8 +108,8 @@ def read_goals(name):
         parts = line.rstrip('\n').split('|')
         if len(parts) == 3:
             gname = parts[0]
-            target = int(parts[1]) if parts[1].isdigit() else 0
-            current = int(parts[2]) if parts[2].isdigit() else 0
+            target = int(parts[1]) if validator(parts[1]) else 0
+            current = int(parts[2]) if validator(parts[2]) else 0
             goals.append([gname, target, current])
     fh.close()
     return goals
