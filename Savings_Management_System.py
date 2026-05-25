@@ -6,11 +6,11 @@ import file_database as db
 def main():
     while True:
         print(f"|+====|SEONEA Savings|====+|\n[1] Log In\n[2] Create Account\n[3] Close")
-        user = input("Select an option (1-3): ")
+        user = input("Select an option (1-3): ").replace(" ", "")
 
         if user == "1":
             while True:
-                account_name = input("Enter your name: ").title()
+                account_name = input("Enter your name: ").replace(" ", "").title()
                 if not account_name:
                     print("Please don't leave this empty!\n")
                     continue
@@ -21,7 +21,7 @@ def main():
                     print("This account does not exist.\n")
                     break
                 while True:
-                    account_pin = input("Enter your PIN: ")
+                    account_pin = input("Enter your PIN: ").replace(" ", "")
                     check_pin = sv.is_numerical_value(account_pin)
                     if not sv.validate_pin_errors(check_pin, account_pin):
                         continue
@@ -34,13 +34,13 @@ def main():
 
                     while True:
                         print(f"|+====|SEONEA Savings|====+|\n[1] Deposit\n[2] Withdraw\n[3] Check Account Balance\n[4] Check Account Transactions\n[5] Savings Goals Tracker\n[6] Delete Account\n[7] Close")
-                        user_ch = input("\nSelect an option (1-7): ")
+                        user_ch = input("\nSelect an option (1-7): ").replace(" ", "")
                         current_bal = db.read_balance(account_name)
 
                         if user_ch == "1":
                             while True:
                                 print(f"\nCurrent Balance: P{current_bal}")
-                                dp_amount = input("How much will you deposit?: ")
+                                dp_amount = input("How much will you deposit?: ").replace(" ", "")
                                 if not dp_amount:
                                     print("Please enter a value.")
                                     continue
@@ -48,7 +48,7 @@ def main():
                                 while not verify_amount:
                                     print("Please enter a valid value.")
                                     print(f"\nCurrent Balance: P{current_bal}")
-                                    dp_amount = input("How much will you deposit?: ")
+                                    dp_amount = input("How much will you deposit?: ").replace(" ", "")
                                     if not dp_amount:
                                         print("Please enter a value.")
                                         continue
@@ -71,7 +71,7 @@ def main():
                             else:
                                 while True:
                                     print(f"\nCurrent Balance: P{current_bal}")
-                                    wd_amount = input("How much will you withdraw?: ")
+                                    wd_amount = input("How much will you withdraw?: ").replace(" ", "")
                                     if not wd_amount:
                                         print("Please enter a value.")
                                         continue
@@ -79,7 +79,7 @@ def main():
                                     while not verify_amount:
                                         print("Please enter a valid value.")
                                         print(f"\nCurrent Balance: P{current_bal}")
-                                        wd_amount = input("How much will you withdraw?: ")
+                                        wd_amount = input("How much will you withdraw?: ").replace(" ", "")
                                         if not wd_amount:
                                             print("Please enter a value.")
                                             continue
@@ -110,15 +110,15 @@ def main():
                             sv.handle_savings_goals_menu(account_name)
 
                         elif user_ch == "6":
-                            confirmation = input("Are you sure you want to delete this account? (Y/N): ").lower()
+                            confirmation = input("Are you sure you want to delete this account? (Y/N): ").replace(" ", "").lower()
                             while confirmation not in ('y', 'n', 'yes', 'no'):
                                 print("\nPlease enter Y or N!")
-                                confirmation = input("Are you sure you want to delete this account? (Y/N): ").lower()
+                                confirmation = input("Are you sure you want to delete this account? (Y/N): ").replace(" ", "").lower()
                             if confirmation in ('y', 'yes'):
                                 attempts = 3
                                 while True:
                                     saved_pin = db.read_pin(account_name)
-                                    account_pin = input("Enter your PIN: ")
+                                    account_pin = input("Enter your PIN: ").replace(" ", "")
                                     check_pin = sv.is_numerical_value(account_pin)
                                     if not sv.validate_pin_errors(check_pin, account_pin):
                                         continue
@@ -145,10 +145,10 @@ def main():
                             print("\nPlease enter one of the existing options (1-7).\n")
                             continue
 
-                        use_again = input("Would you like to continue to the main menu? (Y/N): ").lower()
+                        use_again = input("Would you like to continue to the main menu? (Y/N): ").replace(" ", "").lower()
                         while use_again not in ('y', 'n', 'yes', 'no'):
                             print("\nPlease enter Y or N!")
-                            use_again = input("\nWould you like to continue? (Y/N): ").lower()
+                            use_again = input("\nWould you like to continue? (Y/N): ").replace(" ", "").lower()
                         if use_again in ('y', 'yes'):
                             continue
                         else:
@@ -157,7 +157,7 @@ def main():
 
         elif user == "2":
             while True:
-                account_name = input("Enter your name: ").title()
+                account_name = input("Enter your name: ").replace(" ", "").title()
                 if not account_name:
                     print("Please don't leave this empty!\n")
                     continue
@@ -167,11 +167,11 @@ def main():
                 if os.path.exists(f"{account_name}.txt"):
                     print("This account already exists!\n")
                     continue
-                account_pin = input("Enter a 4-DIGIT PIN: ")
+                account_pin = input("Enter a 4-DIGIT PIN: ").replace(" ", "")
                 check_pin = sv.is_numerical_value(account_pin)
                 if not sv.validate_pin_errors(check_pin, account_pin):
                     continue
-                verify_pin = input("Confirm your PIN: ")
+                verify_pin = input("Confirm your PIN: ").replace(" ", "")
                 if verify_pin != account_pin:
                     print("PINs do not match.\n")
                     continue
